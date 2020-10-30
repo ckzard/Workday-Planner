@@ -13,6 +13,8 @@ $(".row").clone().appendTo(".container");
 var timeContainer = document.querySelector(".container");
 var timeSlotList = timeContainer.getElementsByTagName("aside");
 
+
+
 for (let i = 0; i < timeSlotList.length; i++) {
     if (i <= 2) {
         timeSlotList[i].textContent = timesOfDay[i] + " AM";
@@ -20,6 +22,10 @@ for (let i = 0; i < timeSlotList.length; i++) {
         timeSlotList[i].textContent = timesOfDay[i] + " PM";
     }
 }
+
+timeContainer.addEventListener("click", function (event) {
+    var element = event.target;
+})
 
 })
 

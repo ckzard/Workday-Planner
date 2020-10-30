@@ -79,4 +79,8 @@ textarea{
 .inputSlot {
   background-color: mediumaquamarine;
   border: none;
+  outline: none;
+  width: 710px;
+  height: 60px;
+  left: 10px;
 }
