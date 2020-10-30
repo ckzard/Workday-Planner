@@ -23,17 +23,20 @@ textarea{
 
 .description{
   white-space: pre-wrap;
+  background-color: mediumaquamarine;
 }
 
 .time-block{
   text-align: center;
-  border-radius: 15px;
+  /* border-radius: 15px; */
+  border: solid rgb(128, 126, 126) 1px;
+  border-left: none;
 }
 
 .row {
   white-space: pre-wrap;
   height: 80px;
-  border-top: 1px solid white;;
+  border-top: 1px solid white;
 }
 
 .hour {
@@ -63,9 +66,17 @@ textarea{
   border-bottom-right-radius: 15px;
   background-color: #06AED5;
   color: white;
+  text-align: center;
+  padding-top: 20px;
+  padding-right: 30px;
 }
 
 .saveBtn i:hover {
   font-size: 20px;
   transition: all .3s ease-in-out;
+}
+
+.inputSlot {
+  background-color: mediumaquamarine;
+  border: none;
 }
