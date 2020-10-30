@@ -1,7 +1,6 @@
-$(document).ready(function () {
-
 var timesOfDay = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 var inputCounter = 0;
+var todos = [];
 
 $(".row").clone().appendTo(".container");
 $(".row").clone().appendTo(".container");
@@ -13,6 +12,13 @@ $(".row").clone().appendTo(".container");
 var timeContainer = document.querySelector(".container");
 var timeSlotList = timeContainer.getElementsByTagName("aside");
 
+function init() {
+    //when application begins we check sessionstorage and take items if they are there
+    storedTodos = JSON.parse(sessionStorage.getItem("TodoList"));
+    if (storedTodos !== null) {
+        todos = storedTodos;
+    }
+}
 
 
 for (let i = 0; i < timeSlotList.length; i++) {
@@ -25,7 +31,24 @@ for (let i = 0; i < timeSlotList.length; i++) {
 
 timeContainer.addEventListener("click", function (event) {
     var element = event.target;
+    console.log(element)        
+    })
+
+this.addEventListener("keypress", function (event) {
+        
+    var keyPress = event;
+    if (keyPress.code === "Enter") {
+        console.log("ENTER PRESSED")
+        console.log(event.target.value);
+        todos.push(event.target.value);
+        //upon pressing enter, we push the value of the input box currently being targeted to the list of todos
+        sessionStorage.setItem("TodoList", JSON.stringify(todos));
+        //then we set the new list into sessionstorage to be reused
+        event.target.value = "";
+        }
 })
 
-})
+init();
+
+
 
