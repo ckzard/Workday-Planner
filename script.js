@@ -20,6 +20,14 @@ function init() {
     }
 }
 
+function storeTodos() {
+    
+}
+
+function renderTodos () {
+
+}
+
 
 for (let i = 0; i < timeSlotList.length; i++) {
     if (i <= 2) {
