@@ -87,10 +87,11 @@ function renderTodos () {
         var timeId = itemSplit.pop(); 
         console.log(todos[i]) 
         console.log(timeId) 
-        for (let j = 0; j < descriptionList.length; j++) {
+        for (let j = 0; j < inputSlotList.length; j++) {
             listTime = militaryTimes[j]; 
             if(listTime == timeId) { 
-                descriptionList[j].textContent = todos[i];
+                inputSlotList[j].placeholder = todos[i];
+                
             }
         }
     } 
@@ -106,7 +107,7 @@ function momentTime() {
 
 workContainer.addEventListener("click", function (event) {
     var element = event.target;
-    console.log(element) 
+    console.log(element);
     })
 
 this.addEventListener("keypress", function (event) {
@@ -123,6 +124,8 @@ this.addEventListener("keypress", function (event) {
         renderTodos();
         }
 })
+
+this.
 
 init();
 
