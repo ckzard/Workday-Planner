@@ -1,4 +1,6 @@
 var timesOfDay = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+var militaryTimes = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
+var currentHour = moment().hour();
 var inputCounter = 0;
 var todos = [];
 
@@ -7,51 +9,116 @@ $(".row").clone().appendTo(".container");
 $(".row").clone().appendTo(".container");
 //everytime the above line is called, it duplicates what is there, so now there are 8 rows
 
+//the code targets time slots, to iterate through later
+var workContainer = document.querySelector(".container");
+var timeSlotList = workContainer.getElementsByTagName("aside");
+//the code below targets description slots, to iterate through later
+var descriptionList = workContainer.getElementsByTagName("section");
+var inputSlotList = workContainer.getElementsByTagName("input");
 
-//the code below updates the time box to descend to from 9 - 5
-var timeContainer = document.querySelector(".container");
-var timeSlotList = timeContainer.getElementsByTagName("aside");
+//adding ids based on time to each inputslot
+var x = 0;
+$(".inputSlot").each(function() {
+    var idTime = militaryTimes[x];
+    $(this).attr("id", idTime);
+    x++;
+})
+
+// var y = 0;
+// $(".description").each(function() {
+//     var idTime = militaryTimes[y];
+//     $(this).attr("id", idTime);
+//     y++;
+// })
 
 function init() {
     //when application begins we check sessionstorage and take items if they are there
+     //creates a variable to check what is stored in sessionstorage, and updates todos list with whats there as long as its not empty
     storedTodos = JSON.parse(sessionStorage.getItem("TodoList"));
     if (storedTodos !== null) {
         todos = storedTodos;
     }
+    renderTodos();
+    renderTimeTags();
+    momentTime();
+    momentTimeColours();
+    console.log(todos)
 }
 
-function storeTodos() {
-    
-}
-
-function renderTodos () {
-
-}
-
-
-for (let i = 0; i < timeSlotList.length; i++) {
-    if (i <= 2) {
-        timeSlotList[i].textContent = timesOfDay[i] + " AM";
-    } else {
-        timeSlotList[i].textContent = timesOfDay[i] + " PM";
+function renderTimeTags() {
+    for (let i = 0; i < timeSlotList.length; i++) {
+        if (i <= 2) {
+            timeSlotList[i].textContent = timesOfDay[i] + " AM";
+        } else {
+            timeSlotList[i].textContent = timesOfDay[i] + " PM";
+        }
     }
 }
 
-timeContainer.addEventListener("click", function (event) {
+function momentTimeColours() {
+    //iterate through timeslots and change colour depending on time
+    for (let i = 0; i < descriptionList.length; i++) {
+        var timeTag = parseInt(timeSlotList[i].textContent.split(" "));
+        // var currentHour = 12; - for testing
+        if (i > 3) {
+            timeTag += 12;
+            //adjusting for military time to compare to moment
+        }
+        
+        if (timeTag < currentHour) {
+            $(descriptionList[i]).addClass("past");
+        } else if (timeTag > currentHour) {
+            $(descriptionList[i]).addClass("future"); 
+        } else if (timeTag == currentHour){
+            $(descriptionList[i]).addClass("present");
+        }
+    }
+}
+
+function storeTodos() {
+    sessionStorage.setItem("TodoList", JSON.stringify(todos));
+    //creates a key TodoList and makes its values whatefver todos is
+}
+
+function renderTodos () {
+    //function to iterate through todos, on each todo, iterate through description list items and change text content depending on if time ID matches the time slot
+    for (let i = 0; i < todos.length; i++) {
+        itemSplit = todos[i].split(" "); 
+        var timeId = itemSplit.pop(); 
+        console.log(todos[i]) 
+        console.log(timeId) 
+        for (let j = 0; j < descriptionList.length; j++) {
+            listTime = militaryTimes[j]; 
+            if(listTime == timeId) { 
+                descriptionList[j].textContent = todos[i];
+            }
+        }
+    } 
+}
+
+function momentTime() {
+    
+    console.log("current hour is " + currentHour);
+}
+
+
+
+
+workContainer.addEventListener("click", function (event) {
     var element = event.target;
-    console.log(element)        
+    console.log(element) 
     })
 
 this.addEventListener("keypress", function (event) {
         
     var keyPress = event;
-    if (keyPress.code === "Enter") {
+    if (keyPress.code === "Enter" && event.target.value) {
         console.log("ENTER PRESSED")
+        console.log(event.target)
         console.log(event.target.value);
-        todos.push(event.target.value);
-        //upon pressing enter, we push the value of the input box currently being targeted to the list of todos
-        sessionStorage.setItem("TodoList", JSON.stringify(todos));
-        //then we set the new list into sessionstorage to be reused
+        todos.push(event.target.value + ' ' + event.target.id);
+        //upon pressing enter, we push the value of the input box currently being targeted to the local list and call store function
+        storeTodos();
         event.target.value = "";
         }
 })
