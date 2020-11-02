@@ -120,6 +120,7 @@ this.addEventListener("keypress", function (event) {
         //upon pressing enter, we push the value of the input box currently being targeted to the local list and call store function
         storeTodos();
         event.target.value = "";
+        renderTodos();
         }
 })
 
