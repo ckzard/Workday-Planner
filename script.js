@@ -1,6 +1,7 @@
 var timesOfDay = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 var militaryTimes = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 var currentHour = moment().hour();
+// var currentDayTime = moment();
 var inputCounter = 0;
 var todos = [];
 
@@ -16,6 +17,18 @@ var timeSlotList = workContainer.getElementsByTagName("aside");
 var descriptionList = workContainer.getElementsByTagName("section");
 var inputSlotList = workContainer.getElementsByTagName("input");
 
+
+//TIME FUNCTIONS FOR REAL TIME DISPLAY OF CURRENT TIME
+function updateTime() {
+    var currentDateTime = moment(new Date())
+    $("#currentDay  ").text(currentDateTime);
+}
+
+$(document).ready(function(){
+    updateTime();
+    setInterval(updateTime, 1000);
+});
+
 //adding ids based on time to each inputslot
 var x = 0;
 $(".inputSlot").each(function() {
@@ -24,12 +37,12 @@ $(".inputSlot").each(function() {
     x++;
 })
 
-// var y = 0;
-// $(".description").each(function() {
-//     var idTime = militaryTimes[y];
-//     $(this).attr("id", idTime);
-//     y++;
-// })
+var y = 0;
+$(".saveIcon").each(function() {
+    var idTime = militaryTimes[y];
+    $(this).attr("id", idTime);
+    y++;
+})
 
 function init() {
     //when application begins we check sessionstorage and take items if they are there
@@ -102,21 +115,13 @@ function momentTime() {
     console.log("current hour is " + currentHour);
 }
 
-
-
-
-workContainer.addEventListener("click", function (event) {
-    var element = event.target;
-    console.log(element);
-    })
-
 this.addEventListener("keypress", function (event) {
         
     var keyPress = event;
     if (keyPress.code === "Enter" && event.target.value) {
-        console.log("ENTER PRESSED")
-        console.log(event.target)
-        console.log(event.target.value);
+        // console.log("ENTER PRESSED")
+        // console.log(event.target)
+        // console.log(event.target.value);
         todos.push(event.target.value + ' ' + event.target.id);
         //upon pressing enter, we push the value of the input box currently being targeted to the local list and call store function
         storeTodos();
@@ -125,8 +130,25 @@ this.addEventListener("keypress", function (event) {
         }
 })
 
-this.
-
+this.addEventListener("click", function (event) {
+        
+    var element = event.target;
+    if (element.matches("i") === true) {    
+        console.log(element);
+        console.log(element.id);
+        for (let i = 0; i < inputSlotList.length; i++) {
+            if (inputSlotList[i].value && inputSlotList[i].id === element.id) {
+                todos.push(inputSlotList[i].value + ' ' + inputSlotList[i].id);
+                storeTodos();
+                inputSlotList[i].value = "";
+            }   
+        }
+        
+        
+        
+        }
+        renderTodos();
+})
 init();
 
 
