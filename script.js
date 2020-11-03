@@ -38,10 +38,17 @@ $(".inputSlot").each(function() {
 })
 
 var y = 0;
-$(".saveIcon").each(function() {
+$(".bi").each(function() {
     var idTime = militaryTimes[y];
     $(this).attr("id", idTime);
     y++;
+})
+
+var z = 0;
+$(".saveIcon").each(function() {
+    var idTime = militaryTimes[z];
+    $(this).attr("id", idTime);
+    z++;
 })
 
 function init() {
@@ -53,7 +60,6 @@ function init() {
     }
     renderTodos();
     renderTimeTags();
-    momentTime();
     momentTimeColours();
     console.log(todos)
 }
@@ -112,11 +118,7 @@ function renderTodos () {
     } 
 }
 
-function momentTime() {
-    
-    console.log("current hour is " + currentHour);
-}
-
+//enter to save
 this.addEventListener("keypress", function (event) {
         
     var keyPress = event;
@@ -132,12 +134,12 @@ this.addEventListener("keypress", function (event) {
         }
 })
 
+//click to save
 this.addEventListener("click", function (event) {
         
     var element = event.target;
-    if (element.matches("i") === true) {    
-        console.log(element);
-        console.log(element.id);
+    if (element.matches("svg") === true || element.matches("i") === true) {
+        console.log(element);    
         for (let i = 0; i < inputSlotList.length; i++) {
             if (inputSlotList[i].value && inputSlotList[i].id === element.id) {
                 todos.push(inputSlotList[i].value + ' ' + inputSlotList[i].id);
