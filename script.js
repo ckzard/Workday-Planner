@@ -103,8 +103,10 @@ function renderTodos () {
         for (let j = 0; j < inputSlotList.length; j++) {
             listTime = militaryTimes[j]; 
             if(listTime == timeId) { 
-                inputSlotList[j].placeholder = todos[i];
-                
+                itemSplit = todos[i].split(" ");
+                itemSplit.pop();
+                itemJoin = itemSplit.join(" "); 
+                inputSlotList[j].placeholder = itemJoin;
             }
         }
     } 
