@@ -144,13 +144,11 @@ this.addEventListener("click", function (event) {
                 storeTodos();
                 inputSlotList[i].value = "";
             }   
-        }
-        
-        
-        
-        }
-        renderTodos();
+        }    
+    }
+    renderTodos();
 })
+
 init();
 
 
