@@ -116,6 +116,16 @@ function renderTodos () {
             }
         }
     } 
+    colourTodos();
+}
+
+//adds some styling to todo if it has been updated
+function colourTodos () {
+    for (let i = 0; i < inputSlotList.length; i++) {
+        if (inputSlotList[i].placeholder !== "enter text here and hit save") {
+            $(inputSlotList[i]).addClass("active");
+        }
+    }
 }
 
 //enter to save
@@ -138,8 +148,8 @@ this.addEventListener("keypress", function (event) {
 this.addEventListener("click", function (event) {
         
     var element = event.target;
-    if (element.matches("svg") === true || element.matches("i") === true) {
-        console.log(element);    
+    console.log(element)
+    if (element.matches("svg") === true || element.matches("i") === true) {   
         for (let i = 0; i < inputSlotList.length; i++) {
             if (inputSlotList[i].value && inputSlotList[i].id === element.id) {
                 todos.push(inputSlotList[i].value + ' ' + inputSlotList[i].id);

@@ -84,3 +84,8 @@ textarea{
   height: 60px;
   left: 10px;
 }
+.active::placeholder {
+  color: black;
+  font-size: larger;
+  font-weight: bold;
+}
