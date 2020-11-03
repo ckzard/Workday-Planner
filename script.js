@@ -20,8 +20,8 @@ var inputSlotList = workContainer.getElementsByTagName("input");
 
 //TIME FUNCTIONS FOR REAL TIME DISPLAY OF CURRENT TIME
 function updateTime() {
-    var currentDateTime = moment(new Date())
-    $("#currentDay  ").text(currentDateTime);
+    var currentDateTime = moment(new Date());
+    $("#currentDay").text(currentDateTime);
 }
 
 $(document).ready(function(){
